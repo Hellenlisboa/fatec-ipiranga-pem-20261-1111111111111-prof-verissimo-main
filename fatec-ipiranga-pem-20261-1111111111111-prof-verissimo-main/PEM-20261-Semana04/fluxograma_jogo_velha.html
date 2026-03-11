@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Fluxograma - Jogo da Velha</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f5f5f5; display: flex; justify-content: center; padding: 20px; }
+  svg { background: white; box-shadow: 2px 2px 8px rgba(0,0,0,0.2); }
+  .shape { stroke: #1a3a5c; stroke-width: 2; }
+  .terminal { fill: #1F4E79; }
+  .process { fill: #2E75B6; }
+  .decision { fill: #ED7D31; }
+  .io { fill: #70AD47; }
+  text { font-family: Arial, sans-serif; font-size: 12px; fill: white; font-weight: bold; text-anchor: middle; }
+  .arrow { fill: none; stroke: #1a3a5c; stroke-width: 2; marker-end: url(#arrowhead); }
+  .label { fill: #1a3a5c; font-size: 11px; font-weight: bold; }
+</style>
+</head>
+<body>
+<svg width="560" height="1380" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a3a5c"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="280" y="28" style="fill:#1a3a5c;font-size:16px;font-weight:bold;">Fluxograma – Jogo da Velha</text>
+
+  <!-- INICIO -->
+  <ellipse cx="280" cy="62" rx="70" ry="22" class="shape terminal"/>
+  <text x="280" y="66">INÍCIO</text>
+
+  <!-- Inicializar tabuleiro -->
+  <rect x="175" y="102" width="212" height="38" rx="4" class="shape process"/>
+  <text x="281" y="126">Inicializar tabuleiro (vazio)</text>
+
+  <!-- jogador_atual = X -->
+  <rect x="175" y="158" width="212" height="38" rx="4" class="shape process"/>
+  <text x="281" y="182">jogador_atual = 'X'</text>
+
+  <!-- Exibir tabuleiro -->
+  <polygon points="280,215 380,230 280,245 180,230" class="shape io"/>
+  <text x="280" y="234">Exibir tabuleiro</text>
+
+  <!-- Ler linha e coluna -->
+  <polygon points="280,263 392,278 280,293 168,278" class="shape io"/>
+  <text x="280" y="282">Ler linha e coluna</text>
+
+  <!-- Posição válida? -->
+  <polygon points="280,315 390,345 280,375 170,345" class="shape decision"/>
+  <text x="280" y="340">Posição válida</text>
+  <text x="280" y="356">e vazia?</text>
+
+  <!-- Alerta -->
+  <rect x="400" y="328" width="140" height="38" rx="4" class="shape" style="fill:#C00000"/>
+  <text x="470" y="351">Exibir alerta</text>
+
+  <!-- Registrar jogada -->
+  <rect x="175" y="393" width="212" height="38" rx="4" class="shape process"/>
+  <text x="281" y="416">tabuleiro[l][c] = jogador_atual</text>
+
+  <!-- Houve vitória? -->
+  <polygon points="280,450 390,478 280,506 170,478" class="shape decision"/>
+  <text x="280" y="473">Houve</text>
+  <text x="280" y="489">vitória?</text>
+
+  <!-- Exibir vencedor -->
+  <polygon points="280,520 390,535 280,550 170,535" class="shape io"/>
+  <text x="280" y="539">Exibir "Jogador X/O venceu!"</text>
+
+  <!-- Ainda há vazios? -->
+  <polygon points="280,568 388,596 280,624 172,596" class="shape decision"/>
+  <text x="280" y="591">Ainda há</text>
+  <text x="280" y="607">células vazias?</text>
+
+  <!-- Empate -->
+  <polygon points="280,640 388,655 280,670 172,655" class="shape io"/>
+  <text x="280" y="659">Exibir "Empate"</text>
+
+  <!-- Alternar jogador -->
+  <rect x="175" y="688" width="212" height="38" rx="4" class="shape process"/>
+  <text x="281" y="711">Alternar jogador (X ↔ O)</text>
+
+  <!-- FIM -->
+  <ellipse cx="280" cy="784" rx="70" ry="22" class="shape terminal"/>
+  <text x="280" y="788">FIM</text>
+
+  <!-- ARROWS -->
+  <!-- INICIO -> Inicializar -->
+  <line x1="280" y1="84" x2="280" y2="100" class="arrow"/>
+  <!-- Inicializar -> jogador -->
+  <line x1="280" y1="140" x2="280" y2="156" class="arrow"/>
+  <!-- jogador -> Exibir -->
+  <line x1="280" y1="196" x2="280" y2="213" class="arrow"/>
+  <!-- Exibir -> Ler -->
+  <line x1="280" y1="247" x2="280" y2="261" class="arrow"/>
+  <!-- Ler -> Válida? -->
+  <line x1="280" y1="295" x2="280" y2="313" class="arrow"/>
+
+  <!-- Não válida -> alerta -->
+  <line x1="390" y1="345" x2="398" y2="345" class="arrow"/>
+  <text x="392" y="340" class="label">Não</text>
+  <!-- Alerta volta para Ler -->
+  <path d="M470,328 L470,300 L392,278" class="arrow"/>
+
+  <!-- Válida -> Registrar -->
+  <line x1="280" y1="377" x2="280" y2="391" class="arrow"/>
+  <text x="245" y="388" class="label">Sim</text>
+
+  <!-- Registrar -> Houve vitória? -->
+  <line x1="280" y1="431" x2="280" y2="448" class="arrow"/>
+
+  <!-- Houve vitória Sim -> Exibir vencedor -->
+  <line x1="280" y1="508" x2="280" y2="518" class="arrow"/>
+  <text x="245" y="518" class="label">Sim</text>
+
+  <!-- Exibir vencedor -> FIM -->
+  <path d="M170,535 L90,535 L90,784 L208,784" class="arrow"/>
+
+  <!-- Houve vitória Não -> Ainda vazios? -->
+  <line x1="280" y1="508" x2="280" y2="566" class="arrow"/>
+  <text x="245" y="555" class="label">Não</text>
+
+  <!-- Ainda vazios Não -> Empate -->
+  <line x1="280" y1="626" x2="280" y2="638" class="arrow"/>
+  <text x="245" y="637" class="label">Não</text>
+
+  <!-- Empate -> FIM -->
+  <path d="M388,655 L450,655 L450,784 L352,784" class="arrow"/>
+
+  <!-- Ainda vazios Sim -> Alternar -->
+  <line x1="280" y1="626" x2="280" y2="686" class="arrow"/>
+  <text x="245" y="672" class="label">Sim</text>
+
+  <!-- Alternar -> Exibir tabuleiro (loop back) -->
+  <path d="M175,707 L100,707 L100,230 L178,230" class="arrow"/>
+
+  <!-- FIM arrow from vencedor block note -->
+  <text x="280" y="810" style="fill:#888;font-size:10px;text-anchor:middle;">FATEC Ipiranga – PEM – Semana 4</text>
+</svg>
+</body>
+</html>
