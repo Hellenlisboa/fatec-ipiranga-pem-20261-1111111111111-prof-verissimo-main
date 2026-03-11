@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Fluxograma – CRUD de Produtos</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f5f5f5; display:flex; justify-content:center; padding:20px; }
+  svg { background:white; box-shadow:2px 2px 8px rgba(0,0,0,0.2); }
+  text { font-family: Arial, sans-serif; font-size: 11.5px; fill: white; font-weight: bold; text-anchor: middle; }
+  .label { fill: #1a3a5c; font-size: 11px; font-weight: bold; }
+  .arrow { fill: none; stroke: #1a3a5c; stroke-width: 2; marker-end: url(#arr); }
+  .terminal { fill: #1F4E79; stroke: #1a3a5c; stroke-width:2; }
+  .process  { fill: #2E75B6; stroke: #1a3a5c; stroke-width:2; }
+  .decision { fill: #ED7D31; stroke: #1a3a5c; stroke-width:2; }
+  .io       { fill: #70AD47; stroke: #1a3a5c; stroke-width:2; }
+  .sub      { fill: #7030A0; stroke: #1a3a5c; stroke-width:2; }
+</style>
+</head>
+<body>
+<svg width="620" height="1020" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#1a3a5c"/>
+  </marker>
+</defs>
+
+<!-- Title -->
+<text x="310" y="28" style="fill:#1a3a5c;font-size:15px;font-weight:bold;">Fluxograma – CRUD de Produtos</text>
+
+<!-- INÍCIO -->
+<ellipse cx="310" cy="58" rx="70" ry="22" class="terminal"/>
+<text x="310" y="63">INÍCIO</text>
+
+<!-- Inicializar array -->
+<rect x="195" y="95" width="230" height="36" rx="4" class="process"/>
+<text x="310" y="118">Inicializar array idProduto[10] = 0</text>
+
+<!-- Exibir Menu -->
+<polygon points="310,150 420,165 310,180 200,165" class="io"/>
+<text x="310" y="169">Exibir Menu</text>
+
+<!-- Ler opção -->
+<polygon points="310,190 410,205 310,220 210,205" class="io"/>
+<text x="310" y="209">Ler opção</text>
+
+<!-- Opção == 0? -->
+<polygon points="310,235 410,258 310,281 210,258" class="decision"/>
+<text x="310" y="254">Opção</text>
+<text x="310" y="268">== 0?</text>
+
+<!-- FIM -->
+<ellipse cx="310" cy="318" rx="70" ry="22" class="terminal"/>
+<text x="310" y="323">FIM</text>
+
+<!-- Incluir? -->
+<polygon points="310,358 410,375 310,392 210,375" class="decision"/>
+<text x="310" y="379">op == 1?</text>
+
+<!-- SUB: Incluir -->
+<rect x="440" y="356" width="150" height="38" rx="4" class="sub"/>
+<text x="515" y="375">INCLUIR</text>
+<text x="515" y="388" style="font-size:10px;">(validar, armazenar)</text>
+
+<!-- Consultar? -->
+<polygon points="310,410 410,427 310,444 210,427" class="decision"/>
+<text x="310" y="431">op == 2?</text>
+
+<!-- SUB: Consultar -->
+<rect x="440" y="408" width="150" height="38" rx="4" class="sub"/>
+<text x="515" y="427">CONSULTAR</text>
+<text x="515" y="440" style="font-size:10px;">(buscar e exibir)</text>
+
+<!-- Alterar? -->
+<polygon points="310,462 410,479 310,496 210,479" class="decision"/>
+<text x="310" y="483">op == 3?</text>
+
+<!-- SUB: Alterar -->
+<rect x="440" y="460" width="150" height="38" rx="4" class="sub"/>
+<text x="515" y="479">ALTERAR</text>
+<text x="515" y="492" style="font-size:10px;">(buscar e substituir)</text>
+
+<!-- Excluir? -->
+<polygon points="310,514 410,531 310,548 210,531" class="decision"/>
+<text x="310" y="535">op == 4?</text>
+
+<!-- SUB: Excluir -->
+<rect x="440" y="512" width="150" height="38" rx="4" class="sub"/>
+<text x="515" y="531">EXCLUIR</text>
+<text x="515" y="544" style="font-size:10px;">(substituir por 0)</text>
+
+<!-- Listar? -->
+<polygon points="310,566 410,583 310,600 210,583" class="decision"/>
+<text x="310" y="587">op == 5?</text>
+
+<!-- SUB: Listar -->
+<rect x="440" y="564" width="150" height="38" rx="4" class="sub"/>
+<text x="515" y="583">LISTAR TODOS</text>
+<text x="515" y="596" style="font-size:10px;">(percorrer array)</text>
+
+<!-- Inválido -->
+<rect x="440" y="616" width="150" height="36" rx="4" style="fill:#C00000;stroke:#1a3a5c;stroke-width:2;"/>
+<text x="515" y="638">Opção inválida</text>
+
+<!-- ARROWS main flow -->
+<line x1="310" y1="80" x2="310" y2="93" class="arrow"/>
+<line x1="310" y1="131" x2="310" y2="148" class="arrow"/>
+<line x1="310" y1="182" x2="310" y2="188" class="arrow"/>
+<line x1="310" y1="222" x2="310" y2="233" class="arrow"/>
+
+<!-- op==0 Sim -> FIM -->
+<line x1="310" y1="283" x2="310" y2="294" class="arrow"/>
+<text x="274" y="292" class="label">Sim</text>
+
+<!-- op==0 Não -> op==1? -->
+<line x1="310" y1="283" x2="310" y2="356" class="arrow" style="display:none"/>
+<path d="M410,258 L490,258 L490,340 L310,340 L310,356" class="arrow"/>
+<text x="418" y="254" class="label">Não</text>
+
+<!-- op==1 Sim -> sub incluir -->
+<line x1="410" y1="375" x2="438" y2="375" class="arrow"/>
+<text x="415" y="370" class="label">Sim</text>
+<!-- sub incluir -> volta menu -->
+<path d="M515,394 L515,650 L50,650 L50,165 L198,165" class="arrow"/>
+
+<!-- op==1 Não -> op==2 -->
+<line x1="310" y1="394" x2="310" y2="408" class="arrow"/>
+<text x="274" y="408" class="label">Não</text>
+
+<!-- op==2 Sim -> sub consultar -->
+<line x1="410" y1="427" x2="438" y2="427" class="arrow"/>
+<text x="415" y="422" class="label">Sim</text>
+<!-- sub consultar -> volta menu -->
+<path d="M515,446 L515,660 L45,660 L45,165 L198,165" class="arrow" style="display:none"/>
+<!-- all subs merge to bottom loop -->
+
+<!-- op==2 Não -> op==3 -->
+<line x1="310" y1="446" x2="310" y2="460" class="arrow"/>
+<text x="274" y="460" class="label">Não</text>
+
+<!-- op==3 Sim -> sub alterar -->
+<line x1="410" y1="479" x2="438" y2="479" class="arrow"/>
+<text x="415" y="474" class="label">Sim</text>
+
+<!-- op==3 Não -> op==4 -->
+<line x1="310" y1="498" x2="310" y2="512" class="arrow"/>
+<text x="274" y="512" class="label">Não</text>
+
+<!-- op==4 Sim -> sub excluir -->
+<line x1="410" y1="531" x2="438" y2="531" class="arrow"/>
+<text x="415" y="526" class="label">Sim</text>
+
+<!-- op==4 Não -> op==5 -->
+<line x1="310" y1="550" x2="310" y2="564" class="arrow"/>
+<text x="274" y="564" class="label">Não</text>
+
+<!-- op==5 Sim -> sub listar -->
+<line x1="410" y1="583" x2="438" y2="583" class="arrow"/>
+<text x="415" y="578" class="label">Sim</text>
+
+<!-- op==5 Não -> inválido -->
+<path d="M310,602 L310,616 L438,616" class="arrow"/>
+<text x="274" y="616" class="label">Não</text>
+
+<!-- all subs -> loop line at bottom -->
+<path d="M590,394 L600,394 L600,694 L55,694 L55,165 L198,165" class="arrow"/>
+<path d="M590,446 L601,446 L601,694" style="fill:none;stroke:#1a3a5c;stroke-width:2;"/>
+<path d="M590,498 L602,498 L602,694" style="fill:none;stroke:#1a3a5c;stroke-width:2;"/>
+<path d="M590,550 L603,550 L603,694" style="fill:none;stroke:#1a3a5c;stroke-width:2;"/>
+<path d="M590,602 L604,602 L604,694" style="fill:none;stroke:#1a3a5c;stroke-width:2;"/>
+<path d="M590,652 L605,652 L605,694" style="fill:none;stroke:#1a3a5c;stroke-width:2;"/>
+
+<text x="310" y="1010" style="fill:#888;font-size:10px;text-anchor:middle;">FATEC Ipiranga – PEM – Semana 3</text>
+</svg>
+</body>
+</html>
